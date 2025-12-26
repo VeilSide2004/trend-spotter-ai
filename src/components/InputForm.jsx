@@ -16,21 +16,54 @@ const EXAMPLE_APPS = [
   { name: "Blinkit", url: "https://play.google.com/store/apps/details?id=com.grofers.customerapp" },
 ];
 
+const ViewModeToggle = ({ mode, onChange }) => {
+  return (
+    <div className="relative flex items-center bg-secondary rounded-full p-1 w-fit">
+      <div
+        className={cn(
+          "absolute top-1 bottom-1 w-[calc(50%-4px)] rounded-full bg-primary transition-all duration-300 ease-out shadow-sm",
+          mode === "single" ? "left-1" : "left-[calc(50%+2px)]"
+        )}
+      />
+      <button
+        type="button"
+        onClick={() => onChange("single")}
+        className={cn(
+          "relative z-10 px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200",
+          mode === "single" ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+        )}
+      >
+        Single Day
+      </button>
+      <button
+        type="button"
+        onClick={() => onChange("30day")}
+        className={cn(
+          "relative z-10 px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200",
+          mode === "30day" ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+        )}
+      >
+        30 Day Trend
+      </button>
+    </div>
+  );
+};
+
 const InputForm = ({ onAnalyze, isLoading }) => {
   const [appUrl, setAppUrl] = useState("");
   const [targetDate, setTargetDate] = useState(new Date());
+  const [viewMode, setViewMode] = useState("30day");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!appUrl.trim()) return;
-    onAnalyze(appUrl, format(targetDate, "yyyy-MM-dd"));
+    onAnalyze(appUrl, format(targetDate, "yyyy-MM-dd"), viewMode);
   };
 
   const handleExampleClick = (url) => {
     setAppUrl(url);
   };
 
-  // Limit date selection - earliest is June 1, 2024
   const minDate = new Date(2024, 5, 1);
   const maxDate = new Date();
 
@@ -41,7 +74,7 @@ const InputForm = ({ onAnalyze, isLoading }) => {
           <div>
             <CardTitle className="text-xl font-heading">Analyze App Reviews</CardTitle>
             <CardDescription className="mt-1">
-              Enter a Google Play Store app link and target date to generate a 30-day trend analysis
+              Enter a Google Play Store app link and select analysis mode
             </CardDescription>
           </div>
           <Tooltip>
@@ -52,7 +85,8 @@ const InputForm = ({ onAnalyze, isLoading }) => {
             </TooltipTrigger>
             <TooltipContent className="max-w-xs">
               <p className="text-sm">
-                The AI agent analyzes daily review batches, extracts topics, and consolidates similar issues into unified categories for accurate trend tracking.
+                <strong>Single Day:</strong> Analyze reviews for a specific date only.<br/>
+                <strong>30 Day Trend:</strong> View topic trends from T-30 to T.
               </p>
             </TooltipContent>
           </Tooltip>
@@ -61,6 +95,12 @@ const InputForm = ({ onAnalyze, isLoading }) => {
       
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* View Mode Toggle */}
+          <div className="space-y-2">
+            <Label className="text-sm font-medium">Analysis Mode</Label>
+            <ViewModeToggle mode={viewMode} onChange={setViewMode} />
+          </div>
+
           <div className="grid gap-6 md:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="appUrl" className="text-sm font-medium">
@@ -94,7 +134,9 @@ const InputForm = ({ onAnalyze, isLoading }) => {
             </div>
 
             <div className="space-y-2">
-              <Label className="text-sm font-medium">Target Date (T)</Label>
+              <Label className="text-sm font-medium">
+                {viewMode === "single" ? "Analysis Date" : "Target Date (T)"}
+              </Label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
@@ -115,11 +157,15 @@ const InputForm = ({ onAnalyze, isLoading }) => {
                     onSelect={(date) => date && setTargetDate(date)}
                     disabled={(date) => date < minDate || date > maxDate}
                     initialFocus
+                    className={cn("p-3 pointer-events-auto")}
                   />
                 </PopoverContent>
               </Popover>
               <p className="text-xs text-muted-foreground">
-                Report will show trends from {format(subDays(targetDate, 30), "MMM d")} to {format(targetDate, "MMM d, yyyy")}
+                {viewMode === "single" 
+                  ? `Analyze reviews for ${format(targetDate, "MMM d, yyyy")} only`
+                  : `Trends from ${format(subDays(targetDate, 30), "MMM d")} to ${format(targetDate, "MMM d, yyyy")}`
+                }
               </p>
             </div>
           </div>
