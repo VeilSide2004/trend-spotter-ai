@@ -36,7 +36,6 @@ const SEED_TOPICS: Topic[] = [
   { name: "Request: Feature improvement", type: "request", keywords: ["feature", "update", "add", "option", "filter", "improve", "dark mode"] },
 ];
 
-// Scrape reviews from Google Play Store using Firecrawl
 async function scrapePlayStoreReviews(appId: string, startDate: Date, endDate: Date): Promise<Review[]> {
   const FIRECRAWL_API_KEY = Deno.env.get('FIRECRAWL_API_KEY');
   
@@ -74,7 +73,6 @@ async function scrapePlayStoreReviews(appId: string, startDate: Date, endDate: D
     
     console.log(`Scraped content length: ${markdown.length} characters`);
     
-    // Parse reviews from the scraped content
     const reviews = parseReviewsFromContent(markdown, startDate, endDate);
     
     if (reviews.length < 10) {
@@ -90,28 +88,15 @@ async function scrapePlayStoreReviews(appId: string, startDate: Date, endDate: D
   }
 }
 
-// Parse reviews from scraped markdown content
 function parseReviewsFromContent(content: string, startDate: Date, endDate: Date): Review[] {
   const reviews: Review[] = [];
-  
-  // Common patterns in Play Store review content
-  const reviewPatterns = [
-    /(\d+)\s*stars?\s*[-–]\s*(.+?)(?=\d+\s*stars?|$)/gi,
-    /([★]{1,5})\s*(.+?)(?=[★]|$)/gi,
-    /Review:\s*(.+?)(?=Review:|$)/gi,
-  ];
-  
-  // Split content by common review separators
   const lines = content.split(/\n+/);
   const dateRange = getDatesInRange(startDate, endDate);
   
   for (const line of lines) {
     const trimmed = line.trim();
     if (trimmed.length > 20 && trimmed.length < 1000) {
-      // Assign random date within range for scraped reviews
       const randomDate = dateRange[Math.floor(Math.random() * dateRange.length)];
-      
-      // Try to extract rating
       const ratingMatch = trimmed.match(/(\d)\s*star/i) || trimmed.match(/([★]+)/);
       const rating = ratingMatch 
         ? (ratingMatch[1].includes('★') ? ratingMatch[1].length : parseInt(ratingMatch[1]))
@@ -178,103 +163,6 @@ function generateMockReviews(appId: string, startDate: Date, endDate: Date): Rev
   return reviews;
 }
 
-// AI-powered topic extraction using Lovable AI
-async function extractTopicsWithAI(reviews: Review[], existingTopics: Topic[]): Promise<Topic[]> {
-  const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
-  
-  if (!LOVABLE_API_KEY) {
-    console.log("No LOVABLE_API_KEY, using rule-based extraction");
-    return extractTopicsRuleBased(reviews, existingTopics);
-  }
-
-  try {
-    const reviewTexts = reviews.slice(0, 100).map(r => `[${r.rating}★] ${r.text}`).join('\n');
-    
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
-        messages: [
-          {
-            role: "system",
-            content: `You are an expert at analyzing app reviews for food delivery apps. Your task is to:
-1. Extract topics (issues, requests, feedback) from reviews
-2. Consolidate similar topics into unified categories
-3. Categorize each topic as: issue, request, or feedback
-
-CRITICAL: Always consolidate similar topics into one. Examples:
-- "Delivery was late", "Slow delivery", "Waiting too long" → "Delivery delay"
-- "Rude delivery boy", "Impolite delivery person", "Bad behavior" → "Delivery partner behavior"
-- "Food cold", "Stale food", "Not fresh" → "Food quality issues"
-
-Existing topics to match against:
-${existingTopics.map(t => `- ${t.name} (${t.type})`).join('\n')}
-
-Return consolidated topics with accurate counts.`
-          },
-          {
-            role: "user",
-            content: `Analyze these ${reviews.length} reviews and extract consolidated topics:\n\n${reviewTexts}`
-          }
-        ],
-        tools: [
-          {
-            type: "function",
-            function: {
-              name: "extract_topics",
-              description: "Extract and return consolidated topics from reviews",
-              parameters: {
-                type: "object",
-                properties: {
-                  topics: {
-                    type: "array",
-                    items: {
-                      type: "object",
-                      properties: {
-                        name: { type: "string", description: "Unified topic name matching existing topics when possible" },
-                        type: { type: "string", enum: ["issue", "request", "feedback"] },
-                        count: { type: "number", description: "Number of reviews mentioning this topic" },
-                        isNew: { type: "boolean", description: "True only if this is a genuinely new topic" }
-                      },
-                      required: ["name", "type", "count", "isNew"]
-                    }
-                  }
-                },
-                required: ["topics"]
-              }
-            }
-          }
-        ],
-        tool_choice: { type: "function", function: { name: "extract_topics" } }
-      }),
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("AI API error:", response.status, errorText);
-      return extractTopicsRuleBased(reviews, existingTopics);
-    }
-
-    const data = await response.json();
-    const toolCall = data.choices?.[0]?.message?.tool_calls?.[0];
-    
-    if (toolCall?.function?.arguments) {
-      const parsed = JSON.parse(toolCall.function.arguments);
-      console.log(`AI extracted ${parsed.topics?.length || 0} topics`);
-      return parsed.topics || [];
-    }
-    
-    return extractTopicsRuleBased(reviews, existingTopics);
-  } catch (error) {
-    console.error("AI extraction error:", error);
-    return extractTopicsRuleBased(reviews, existingTopics);
-  }
-}
-
 function extractTopicsRuleBased(reviews: Review[], existingTopics: Topic[]): Topic[] {
   const topicCounts: Record<string, Topic & { count: number }> = {};
   
@@ -308,7 +196,7 @@ serve(async (req) => {
   }
 
   try {
-    const { appId, targetDate } = await req.json();
+    const { appId, targetDate, mode = "30day" } = await req.json();
     
     if (!appId || !targetDate) {
       return new Response(
@@ -317,19 +205,27 @@ serve(async (req) => {
       );
     }
 
-    console.log(`\n=== Starting analysis for ${appId} ===`);
+    console.log(`\n=== Starting ${mode} analysis for ${appId} ===`);
     console.log(`Target date: ${targetDate}`);
 
     const endDate = new Date(targetDate);
-    const startDate = new Date(endDate);
-    startDate.setDate(startDate.getDate() - 30);
+    let startDate: Date;
+    
+    if (mode === "single") {
+      // Single day mode - only analyze the target date
+      startDate = new Date(endDate);
+    } else {
+      // 30 day mode - analyze T-30 to T
+      startDate = new Date(endDate);
+      startDate.setDate(startDate.getDate() - 30);
+    }
 
     const dates: string[] = [];
     for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
       dates.push(d.toISOString().split('T')[0]);
     }
 
-    // Scrape real reviews using Firecrawl
+    // Scrape reviews
     const allReviews = await scrapePlayStoreReviews(appId, startDate, endDate);
     console.log(`Total reviews collected: ${allReviews.length}`);
 
@@ -345,37 +241,19 @@ serve(async (req) => {
       topicMap.set(topic.name, { name: topic.name, type: topic.type, values: new Array(dates.length).fill(0) });
     }
 
-    // Process each day with AI-powered extraction
+    // Process each day
     for (let i = 0; i < dates.length; i++) {
       const dayReviews = reviewsByDate[dates[i]] || [];
       if (dayReviews.length === 0) continue;
 
       console.log(`Processing ${dates[i]}: ${dayReviews.length} reviews`);
       
-      const extracted = await extractTopicsWithAI(dayReviews, SEED_TOPICS);
+      const extracted = extractTopicsRuleBased(dayReviews, SEED_TOPICS);
       
       for (const topic of extracted) {
-        // Consolidate with existing topics
-        let matchedName = topic.name;
-        
-        // Try to find matching existing topic
-        for (const existing of SEED_TOPICS) {
-          if (topic.name.toLowerCase().includes(existing.name.toLowerCase()) ||
-              existing.name.toLowerCase().includes(topic.name.toLowerCase())) {
-            matchedName = existing.name;
-            break;
-          }
+        if (topicMap.has(topic.name)) {
+          topicMap.get(topic.name)!.values[i] = topic.count || 0;
         }
-        
-        if (!topicMap.has(matchedName)) {
-          topicMap.set(matchedName, { 
-            name: matchedName, 
-            type: topic.type, 
-            values: new Array(dates.length).fill(0) 
-          });
-        }
-        
-        topicMap.get(matchedName)!.values[i] = topic.count || 0;
       }
     }
 
@@ -392,6 +270,7 @@ serve(async (req) => {
     const appName = appId.split('.').pop() || appId;
 
     console.log(`\n=== Analysis complete ===`);
+    console.log(`Mode: ${mode}`);
     console.log(`Topics found: ${topics.length}`);
     console.log(`Date range: ${dates[0]} to ${dates[dates.length - 1]}`);
 
@@ -403,7 +282,8 @@ serve(async (req) => {
         topics: topics.map(t => ({ name: t.name, type: t.type })), 
         matrix, 
         totalReviews: allReviews.length, 
-        analyzedDays: dates.length 
+        analyzedDays: dates.length,
+        mode
       }), 
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );

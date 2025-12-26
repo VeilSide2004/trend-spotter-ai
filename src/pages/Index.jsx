@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import Header from "@/components/Header.jsx";
 import InputForm from "@/components/InputForm.jsx";
 import TrendTable from "@/components/TrendTable.jsx";
+import SingleDayView from "@/components/SingleDayView.jsx";
 import LoadingState from "@/components/LoadingState.jsx";
 import EmptyState from "@/components/EmptyState.jsx";
 import { useToast } from "@/components/ui/use-toast";
@@ -11,23 +12,24 @@ import { supabase } from "@/integrations/supabase/client";
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [reportData, setReportData] = useState(null);
+  const [viewMode, setViewMode] = useState("30day");
   const [progress, setProgress] = useState({ current: 0, total: 0, status: "" });
   const { toast } = useToast();
 
-  const handleAnalyze = useCallback(async (appUrl, targetDate) => {
+  const handleAnalyze = useCallback(async (appUrl, targetDate, mode) => {
     setIsLoading(true);
     setReportData(null);
-    setProgress({ current: 0, total: 31, status: "Initializing analysis..." });
+    setViewMode(mode);
+    setProgress({ current: 0, total: mode === "single" ? 1 : 31, status: "Initializing analysis..." });
 
     try {
-      // Extract app ID from URL
       const appIdMatch = appUrl.match(/id=([^&]+)/);
       const appId = appIdMatch ? appIdMatch[1] : appUrl;
 
-      setProgress({ current: 1, total: 31, status: "Fetching reviews..." });
+      setProgress({ current: 1, total: mode === "single" ? 1 : 31, status: "Fetching reviews..." });
 
       const { data, error } = await supabase.functions.invoke("analyze-reviews", {
-        body: { appId, targetDate }
+        body: { appId, targetDate, mode }
       });
 
       if (error) {
@@ -39,11 +41,13 @@ const Index = () => {
       }
 
       setReportData(data);
-      setProgress({ current: 31, total: 31, status: "Analysis complete!" });
+      setProgress({ current: mode === "single" ? 1 : 31, total: mode === "single" ? 1 : 31, status: "Analysis complete!" });
 
       toast({
         title: "Analysis Complete",
-        description: `Found ${data.topics?.length || 0} topics across ${data.dates?.length || 0} days`,
+        description: mode === "single" 
+          ? `Found ${data.topics?.length || 0} topics for ${targetDate}`
+          : `Found ${data.topics?.length || 0} topics across ${data.dates?.length || 0} days`,
       });
 
     } catch (error) {
@@ -87,7 +91,11 @@ const Index = () => {
 
           {!isLoading && reportData && (
             <div className="animate-slide-up">
-              <TrendTable data={reportData} />
+              {viewMode === "single" ? (
+                <SingleDayView data={reportData} />
+              ) : (
+                <TrendTable data={reportData} />
+              )}
             </div>
           )}
         </main>
