@@ -1,4 +1,7 @@
-import { TrendingUp, Sparkles } from "lucide-react";
+import { TrendingUp, Sparkles, FlaskConical } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const Header = () => {
   return (
@@ -19,9 +22,25 @@ const Header = () => {
             </div>
           </div>
           
-          <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground">
-            <Sparkles className="h-3.5 w-3.5 text-accent" />
-            <span>Powered by Agentic AI</span>
+          <div className="flex items-center gap-4">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link to="/test-components">
+                  <Button variant="outline" size="sm" className="gap-2">
+                    <FlaskConical className="h-4 w-4" />
+                    <span className="hidden sm:inline">Test Components</span>
+                  </Button>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Test converted JSX components</p>
+              </TooltipContent>
+            </Tooltip>
+            
+            <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground">
+              <Sparkles className="h-3.5 w-3.5 text-accent" />
+              <span>Powered by Agentic AI</span>
+            </div>
           </div>
         </div>
       </div>
