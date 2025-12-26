@@ -2,87 +2,123 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* 
+  Review Trend Analyzer - Design System
+  A professional analytics dashboard aesthetic
 */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
+    /* Core palette - Deep navy analytics theme */
+    --background: 220 20% 97%;
+    --foreground: 220 30% 15%;
+    
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
+    --card-foreground: 220 30% 15%;
+    
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
+    --popover-foreground: 220 30% 15%;
+    
+    /* Primary - Deep navy blue */
+    --primary: 215 50% 23%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Secondary - Soft slate */
+    --secondary: 220 15% 92%;
+    --secondary-foreground: 220 30% 25%;
+    
+    /* Muted - Light gray */
+    --muted: 220 15% 94%;
+    --muted-foreground: 220 10% 45%;
+    
+    /* Accent - Teal */
+    --accent: 175 60% 40%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
+    --ring: 215 50% 23%;
+    
+    --radius: 0.75rem;
+    
+    /* Custom tokens */
+    --gradient-primary: linear-gradient(135deg, hsl(215 50% 23%), hsl(215 60% 35%));
+    --gradient-accent: linear-gradient(135deg, hsl(175 60% 40%), hsl(175 70% 50%));
+    --gradient-subtle: linear-gradient(180deg, hsl(220 20% 97%), hsl(220 15% 94%));
+    
+    --shadow-soft: 0 2px 8px -2px hsl(220 30% 15% / 0.08);
+    --shadow-medium: 0 4px 16px -4px hsl(220 30% 15% / 0.12);
+    --shadow-card: 0 1px 3px hsl(220 30% 15% / 0.04), 0 4px 12px hsl(220 30% 15% / 0.08);
+    
+    /* Status colors */
+    --success: 150 60% 40%;
+    --warning: 38 92% 50%;
+    --info: 200 80% 50%;
+    
+    /* Table specific */
+    --table-header: 220 20% 96%;
+    --table-row-hover: 220 20% 98%;
+    --table-border: 220 15% 90%;
+    
+    /* Frequency heat colors */
+    --heat-low: 175 40% 95%;
+    --heat-medium: 175 50% 75%;
+    --heat-high: 175 60% 45%;
+    --heat-critical: 0 70% 55%;
+    
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --background: 220 25% 8%;
+    --foreground: 220 15% 95%;
+    
+    --card: 220 25% 12%;
+    --card-foreground: 220 15% 95%;
+    
+    --popover: 220 25% 12%;
+    --popover-foreground: 220 15% 95%;
+    
+    --primary: 175 60% 50%;
+    --primary-foreground: 220 25% 8%;
+    
+    --secondary: 220 20% 18%;
+    --secondary-foreground: 220 15% 85%;
+    
+    --muted: 220 20% 15%;
+    --muted-foreground: 220 10% 55%;
+    
+    --accent: 175 60% 45%;
+    --accent-foreground: 220 25% 8%;
+    
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 220 20% 20%;
+    --input: 220 20% 20%;
+    --ring: 175 60% 50%;
+    
+    --table-header: 220 25% 14%;
+    --table-row-hover: 220 25% 16%;
+    --table-border: 220 20% 22%;
+    
+    --heat-low: 175 30% 20%;
+    --heat-medium: 175 40% 35%;
+    --heat-high: 175 50% 45%;
+    --heat-critical: 0 60% 45%;
+    
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -100,6 +136,162 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
   }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  .data-table {
+    @apply w-full border-collapse;
+  }
+  
+  .data-table th {
+    @apply bg-table-header text-left font-mono text-xs font-medium uppercase tracking-wider text-muted-foreground px-3 py-2.5 border-b border-table-border;
+  }
+  
+  .data-table td {
+    @apply font-mono text-sm px-3 py-2 border-b border-table-border;
+  }
+  
+  .data-table tr:hover td {
+    @apply bg-table-row-hover;
+  }
+  
+  .heat-cell {
+    @apply rounded px-2 py-1 text-center font-mono text-xs font-medium;
+  }
+  
+  .heat-cell-0 {
+    @apply bg-transparent text-muted-foreground;
+  }
+  
+  .heat-cell-low {
+    @apply bg-heat-low text-foreground;
+  }
+  
+  .heat-cell-medium {
+    @apply bg-heat-medium text-foreground;
+  }
+  
+  .heat-cell-high {
+    @apply bg-heat-high text-primary-foreground;
+  }
+  
+  .heat-cell-critical {
+    @apply bg-heat-critical text-primary-foreground;
+  }
+  
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-sm border border-border shadow-card rounded-xl;
+  }
+  
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+  
+  .pulse-dot {
+    @apply relative;
+  }
+  
+  .pulse-dot::before {
+    content: '';
+    @apply absolute inset-0 rounded-full animate-ping bg-accent/40;
+  }
+}
+
+@layer utilities {
+  .font-sans {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+  
+  .font-mono {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  
+  .font-heading {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+  
+  .bg-table-header {
+    background-color: hsl(var(--table-header));
+  }
+  
+  .bg-table-row-hover {
+    background-color: hsl(var(--table-row-hover));
+  }
+  
+  .border-table-border {
+    border-color: hsl(var(--table-border));
+  }
+  
+  .bg-heat-low {
+    background-color: hsl(var(--heat-low));
+  }
+  
+  .bg-heat-medium {
+    background-color: hsl(var(--heat-medium));
+  }
+  
+  .bg-heat-high {
+    background-color: hsl(var(--heat-high));
+  }
+  
+  .bg-heat-critical {
+    background-color: hsl(var(--heat-critical));
+  }
+  
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out forwards;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-muted/50 rounded-full;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-muted-foreground/30 rounded-full hover:bg-muted-foreground/50;
 }
