@@ -11,7 +11,7 @@
 
 @layer base {
   :root {
-    /* Light mode - Original clean professional blue */
+    /* Light mode - Clean professional teal */
     --background: 0 0% 98%;
     --foreground: 222 47% 11%;
     
@@ -21,34 +21,34 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
     
-    /* Primary - Professional Blue */
-    --primary: 221 83% 53%;
+    /* Primary - Professional Teal */
+    --primary: 174 72% 40%;
     --primary-foreground: 0 0% 100%;
     
     /* Secondary */
-    --secondary: 210 40% 96%;
+    --secondary: 174 30% 96%;
     --secondary-foreground: 222 47% 11%;
     
     /* Muted */
-    --muted: 210 40% 96%;
+    --muted: 174 20% 96%;
     --muted-foreground: 215 16% 47%;
     
     /* Accent */
-    --accent: 210 40% 96%;
+    --accent: 174 30% 96%;
     --accent-foreground: 222 47% 11%;
     
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
     
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 221 83% 53%;
+    --border: 174 20% 91%;
+    --input: 174 20% 91%;
+    --ring: 174 72% 40%;
     
     --radius: 0.5rem;
     
     /* Custom tokens */
-    --gradient-primary: linear-gradient(135deg, hsl(221 83% 53%), hsl(221 83% 63%));
-    --gradient-accent: linear-gradient(135deg, hsl(221 83% 48%), hsl(221 83% 58%));
+    --gradient-primary: linear-gradient(135deg, hsl(174 72% 40%), hsl(174 72% 50%));
+    --gradient-accent: linear-gradient(135deg, hsl(174 72% 35%), hsl(174 72% 45%));
     --gradient-subtle: linear-gradient(180deg, hsl(0 0% 98%), hsl(0 0% 94%));
     
     --shadow-soft: 0 2px 8px -2px hsl(0 0% 0% / 0.08);
@@ -58,27 +58,27 @@
     /* Status colors */
     --success: 142 76% 36%;
     --warning: 38 92% 50%;
-    --info: 200 80% 50%;
+    --info: 174 72% 40%;
     
     /* Table specific */
-    --table-header: 210 40% 98%;
-    --table-row-hover: 210 40% 96%;
-    --table-border: 214 32% 91%;
+    --table-header: 174 20% 98%;
+    --table-row-hover: 174 20% 96%;
+    --table-border: 174 20% 91%;
     
     /* Frequency heat colors */
-    --heat-low: 221 40% 92%;
-    --heat-medium: 221 60% 75%;
-    --heat-high: 221 80% 50%;
+    --heat-low: 174 30% 92%;
+    --heat-medium: 174 50% 75%;
+    --heat-high: 174 70% 45%;
     --heat-critical: 0 70% 55%;
     
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 222 47% 11%;
-    --sidebar-primary: 221 83% 53%;
+    --sidebar-primary: 174 72% 40%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent: 174 20% 96%;
     --sidebar-accent-foreground: 222 47% 11%;
-    --sidebar-border: 214 32% 91%;
-    --sidebar-ring: 221 83% 53%;
+    --sidebar-border: 174 20% 91%;
+    --sidebar-ring: 174 72% 40%;
   }
 
   .dark {
