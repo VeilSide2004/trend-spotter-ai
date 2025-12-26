@@ -11,79 +11,78 @@
 
 @layer base {
   :root {
-    /* Light mode - Clean professional */
+    /* Light mode - Original clean professional blue */
     --background: 0 0% 98%;
-    --foreground: 0 0% 9%;
+    --foreground: 222 47% 11%;
     
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 9%;
+    --card-foreground: 222 47% 11%;
     
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 9%;
+    --popover-foreground: 222 47% 11%;
     
-    /* Primary - NVIDIA Green */
-    --primary: 83 100% 40%;
-    --primary-foreground: 0 0% 0%;
+    /* Primary - Professional Blue */
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
     
     /* Secondary */
-    --secondary: 0 0% 94%;
-    --secondary-foreground: 0 0% 20%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
     
     /* Muted */
-    --muted: 0 0% 92%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
     
-    /* Accent - NVIDIA Green */
-    --accent: 83 100% 40%;
-    --accent-foreground: 0 0% 0%;
+    /* Accent */
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
     
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
     
-    --border: 0 0% 88%;
-    --input: 0 0% 88%;
-    --ring: 83 100% 40%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 221 83% 53%;
     
     --radius: 0.5rem;
     
     /* Custom tokens */
-    --gradient-primary: linear-gradient(135deg, hsl(83 100% 40%), hsl(83 100% 50%));
-    --gradient-accent: linear-gradient(135deg, hsl(83 100% 35%), hsl(83 100% 45%));
+    --gradient-primary: linear-gradient(135deg, hsl(221 83% 53%), hsl(221 83% 63%));
+    --gradient-accent: linear-gradient(135deg, hsl(221 83% 48%), hsl(221 83% 58%));
     --gradient-subtle: linear-gradient(180deg, hsl(0 0% 98%), hsl(0 0% 94%));
     
     --shadow-soft: 0 2px 8px -2px hsl(0 0% 0% / 0.08);
     --shadow-medium: 0 4px 16px -4px hsl(0 0% 0% / 0.12);
     --shadow-card: 0 1px 3px hsl(0 0% 0% / 0.04), 0 4px 12px hsl(0 0% 0% / 0.08);
-    --shadow-glow: 0 0 20px hsl(83 100% 40% / 0.3);
     
     /* Status colors */
-    --success: 83 100% 40%;
+    --success: 142 76% 36%;
     --warning: 38 92% 50%;
     --info: 200 80% 50%;
     
     /* Table specific */
-    --table-header: 0 0% 96%;
-    --table-row-hover: 0 0% 98%;
-    --table-border: 0 0% 90%;
+    --table-header: 210 40% 98%;
+    --table-row-hover: 210 40% 96%;
+    --table-border: 214 32% 91%;
     
     /* Frequency heat colors */
-    --heat-low: 83 40% 92%;
-    --heat-medium: 83 60% 75%;
-    --heat-high: 83 80% 50%;
+    --heat-low: 221 40% 92%;
+    --heat-medium: 221 60% 75%;
+    --heat-high: 221 80% 50%;
     --heat-critical: 0 70% 55%;
     
     --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 0 0% 20%;
-    --sidebar-primary: 83 100% 40%;
-    --sidebar-primary-foreground: 0 0% 0%;
-    --sidebar-accent: 0 0% 94%;
-    --sidebar-accent-foreground: 0 0% 20%;
-    --sidebar-border: 0 0% 88%;
-    --sidebar-ring: 83 100% 40%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 221 83% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 221 83% 53%;
   }
 
   .dark {
-    /* NVIDIA-inspired dark theme */
+    /* NVIDIA-inspired dark theme - sleek and minimal */
     --background: 0 0% 4%;
     --foreground: 0 0% 95%;
     
@@ -115,7 +114,10 @@
     --ring: 83 100% 45%;
     
     --gradient-primary: linear-gradient(135deg, hsl(83 100% 40%), hsl(83 100% 55%));
-    --shadow-glow: 0 0 30px hsl(83 100% 45% / 0.4);
+    
+    --shadow-soft: 0 2px 8px -2px hsl(0 0% 0% / 0.2);
+    --shadow-medium: 0 4px 16px -4px hsl(0 0% 0% / 0.3);
+    --shadow-card: 0 1px 3px hsl(0 0% 0% / 0.1), 0 4px 12px hsl(0 0% 0% / 0.15);
     
     --table-header: 0 0% 8%;
     --table-row-hover: 0 0% 10%;
@@ -210,17 +212,8 @@
     @apply absolute inset-0 rounded-full animate-ping bg-primary/40;
   }
 
-  .nvidia-glow {
-    box-shadow: var(--shadow-glow);
-  }
-
   .nvidia-button {
-    @apply bg-primary text-primary-foreground font-semibold transition-all duration-200;
-  }
-
-  .nvidia-button:hover {
-    box-shadow: var(--shadow-glow);
-    @apply brightness-110;
+    @apply bg-primary text-primary-foreground font-semibold transition-all duration-200 hover:brightness-110;
   }
 
   /* Skeleton shimmer animation */
