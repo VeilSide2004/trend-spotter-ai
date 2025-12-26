@@ -24,8 +24,8 @@ const EmptyState = () => {
     <Card className="glass-card">
       <CardContent className="py-16">
         <div className="flex flex-col items-center text-center max-w-2xl mx-auto">
-          <div className="p-4 rounded-full bg-muted mb-6">
-            <BarChart3 className="h-10 w-10 text-muted-foreground" />
+          <div className="p-4 rounded-2xl bg-primary/10 backdrop-blur-md border border-primary/20 mb-6">
+            <BarChart3 className="h-10 w-10 text-primary" />
           </div>
 
           <h3 className="text-xl font-heading font-semibold text-foreground mb-3">
@@ -40,11 +40,11 @@ const EmptyState = () => {
             {features.map((feature, idx) => (
               <div
                 key={feature.title}
-                className="p-4 rounded-xl bg-secondary/50 text-left"
+                className="p-4 rounded-xl bg-card/40 backdrop-blur-md border border-border/30 text-left hover:bg-card/60 hover:border-primary/20 transition-all duration-300 hover:-translate-y-0.5"
                 style={{ animationDelay: `${idx * 100}ms` }}
               >
-                <div className="p-2 rounded-lg bg-background w-fit mb-3">
-                  <feature.icon className="h-4 w-4 text-accent" />
+                <div className="p-2.5 rounded-lg bg-primary/10 backdrop-blur-sm border border-primary/20 w-fit mb-3">
+                  <feature.icon className="h-4 w-4 text-primary" />
                 </div>
                 <h4 className="text-sm font-semibold text-foreground mb-1">
                   {feature.title}
