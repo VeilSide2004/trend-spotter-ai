@@ -1,41 +1,37 @@
 import { Moon, Sun } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useTheme } from "@/hooks/use-theme";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();
+  const isDark = theme === 'dark';
 
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={toggleTheme}
-          className="relative overflow-hidden border-border hover:border-primary hover:bg-primary/10 transition-all duration-300"
-        >
-          <Sun className={`h-4 w-4 transition-all duration-300 ${
-            theme === 'dark' 
-              ? 'rotate-90 scale-0 opacity-0' 
-              : 'rotate-0 scale-100 opacity-100'
-          }`} />
-          <Moon className={`absolute h-4 w-4 transition-all duration-300 ${
-            theme === 'dark' 
-              ? 'rotate-0 scale-100 opacity-100' 
-              : '-rotate-90 scale-0 opacity-0'
-          }`} />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </TooltipTrigger>
-      <TooltipContent>
-        <p>Toggle {theme === 'dark' ? 'light' : 'dark'} mode</p>
-      </TooltipContent>
-    </Tooltip>
+    <button
+      onClick={toggleTheme}
+      className="relative w-14 h-7 rounded-full bg-muted border border-border transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
+      aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+    >
+      {/* Track background */}
+      <span 
+        className={`absolute inset-0 rounded-full transition-colors duration-300 ${
+          isDark ? 'bg-primary/20' : 'bg-primary/10'
+        }`}
+      />
+      
+      {/* Sliding thumb */}
+      <span
+        className={`absolute top-0.5 w-6 h-6 rounded-full bg-background border border-border shadow-sm flex items-center justify-center transition-all duration-300 ease-in-out ${
+          isDark ? 'left-[calc(100%-1.625rem)]' : 'left-0.5'
+        }`}
+      >
+        <Sun className={`h-3.5 w-3.5 text-primary absolute transition-all duration-300 ${
+          isDark ? 'opacity-0 rotate-90 scale-0' : 'opacity-100 rotate-0 scale-100'
+        }`} />
+        <Moon className={`h-3.5 w-3.5 text-primary absolute transition-all duration-300 ${
+          isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
+        }`} />
+      </span>
+    </button>
   );
 };
 

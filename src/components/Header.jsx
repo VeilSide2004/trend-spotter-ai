@@ -1,4 +1,4 @@
-import { TrendingUp, Sparkles } from "lucide-react";
+import { TrendingUp } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 
 const Header = () => {
@@ -21,10 +21,6 @@ const Header = () => {
           </div>
           
           <div className="flex items-center gap-4">
-            <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-muted-foreground">
-              <Sparkles className="h-3.5 w-3.5 text-primary" />
-              <span>Powered by Agentic AI</span>
-            </div>
             <ThemeToggle />
           </div>
         </div>
