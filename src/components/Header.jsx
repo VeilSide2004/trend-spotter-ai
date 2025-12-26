@@ -7,7 +7,7 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4 max-w-7xl">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-primary text-primary-foreground nvidia-glow">
+            <div className="p-2 rounded-lg bg-primary text-primary-foreground">
               <TrendingUp className="h-5 w-5" />
             </div>
             <div>
