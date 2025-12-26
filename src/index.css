@@ -195,7 +195,21 @@
   }
   
   .glass-card {
-    @apply bg-card/90 backdrop-blur-sm border border-border shadow-card rounded-xl;
+    @apply bg-card/60 backdrop-blur-xl border border-border/50 shadow-card rounded-xl;
+    box-shadow: 
+      0 4px 24px -4px hsl(var(--primary) / 0.08),
+      inset 0 1px 0 0 hsl(0 0% 100% / 0.08);
+  }
+  
+  .dark .glass-card {
+    @apply bg-card/40 border-primary/10;
+    box-shadow: 
+      0 4px 24px -4px hsl(var(--primary) / 0.15),
+      inset 0 1px 0 0 hsl(0 0% 100% / 0.05);
+  }
+  
+  .glass-panel {
+    @apply bg-background/50 backdrop-blur-md border border-border/30 rounded-lg;
   }
   
   .gradient-text {

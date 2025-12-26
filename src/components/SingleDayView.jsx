@@ -106,10 +106,10 @@ const SingleDayView = ({ data }) => {
     <div className="space-y-6">
       {/* Summary Cards */}
       <div className="grid md:grid-cols-4 gap-4">
-        <Card className="glass-card">
+        <Card className="glass-card hover:border-primary/30 transition-all duration-300 hover:-translate-y-0.5">
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-primary/10">
+              <div className="p-2.5 rounded-xl bg-primary/20 backdrop-blur-md border border-primary/30">
                 <MessageSquare className="h-5 w-5 text-primary" />
               </div>
               <div>
@@ -120,10 +120,10 @@ const SingleDayView = ({ data }) => {
           </CardContent>
         </Card>
         
-        <Card className="glass-card">
+        <Card className="glass-card hover:border-destructive/30 transition-all duration-300 hover:-translate-y-0.5">
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-destructive/10">
+              <div className="p-2.5 rounded-xl bg-destructive/20 backdrop-blur-md border border-destructive/30">
                 <AlertCircle className="h-5 w-5 text-destructive" />
               </div>
               <div>
@@ -134,10 +134,10 @@ const SingleDayView = ({ data }) => {
           </CardContent>
         </Card>
         
-        <Card className="glass-card">
+        <Card className="glass-card hover:border-info/30 transition-all duration-300 hover:-translate-y-0.5">
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-info/10">
+              <div className="p-2.5 rounded-xl bg-info/20 backdrop-blur-md border border-info/30">
                 <Lightbulb className="h-5 w-5 text-info" />
               </div>
               <div>
@@ -148,10 +148,10 @@ const SingleDayView = ({ data }) => {
           </CardContent>
         </Card>
         
-        <Card className="glass-card">
+        <Card className="glass-card hover:border-success/30 transition-all duration-300 hover:-translate-y-0.5">
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-success/10">
+              <div className="p-2.5 rounded-xl bg-success/20 backdrop-blur-md border border-success/30">
                 <TrendingUp className="h-5 w-5 text-success" />
               </div>
               <div>
