@@ -4,129 +4,136 @@
 
 /* 
   Review Trend Analyzer - Design System
-  A professional analytics dashboard aesthetic
+  NVIDIA-inspired dark theme with green accents
 */
 
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    /* Core palette - Deep navy analytics theme */
-    --background: 220 20% 97%;
-    --foreground: 220 30% 15%;
+    /* Light mode - Clean professional */
+    --background: 0 0% 98%;
+    --foreground: 0 0% 9%;
     
     --card: 0 0% 100%;
-    --card-foreground: 220 30% 15%;
+    --card-foreground: 0 0% 9%;
     
     --popover: 0 0% 100%;
-    --popover-foreground: 220 30% 15%;
+    --popover-foreground: 0 0% 9%;
     
-    /* Primary - Deep navy blue */
-    --primary: 215 50% 23%;
-    --primary-foreground: 0 0% 100%;
+    /* Primary - NVIDIA Green */
+    --primary: 83 100% 40%;
+    --primary-foreground: 0 0% 0%;
     
-    /* Secondary - Soft slate */
-    --secondary: 220 15% 92%;
-    --secondary-foreground: 220 30% 25%;
+    /* Secondary */
+    --secondary: 0 0% 94%;
+    --secondary-foreground: 0 0% 20%;
     
-    /* Muted - Light gray */
-    --muted: 220 15% 94%;
-    --muted-foreground: 220 10% 45%;
+    /* Muted */
+    --muted: 0 0% 92%;
+    --muted-foreground: 0 0% 45%;
     
-    /* Accent - Teal */
-    --accent: 175 60% 40%;
-    --accent-foreground: 0 0% 100%;
+    /* Accent - NVIDIA Green */
+    --accent: 83 100% 40%;
+    --accent-foreground: 0 0% 0%;
     
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
     
-    --border: 220 15% 88%;
-    --input: 220 15% 88%;
-    --ring: 215 50% 23%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 83 100% 40%;
     
-    --radius: 0.75rem;
+    --radius: 0.5rem;
     
     /* Custom tokens */
-    --gradient-primary: linear-gradient(135deg, hsl(215 50% 23%), hsl(215 60% 35%));
-    --gradient-accent: linear-gradient(135deg, hsl(175 60% 40%), hsl(175 70% 50%));
-    --gradient-subtle: linear-gradient(180deg, hsl(220 20% 97%), hsl(220 15% 94%));
+    --gradient-primary: linear-gradient(135deg, hsl(83 100% 40%), hsl(83 100% 50%));
+    --gradient-accent: linear-gradient(135deg, hsl(83 100% 35%), hsl(83 100% 45%));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 98%), hsl(0 0% 94%));
     
-    --shadow-soft: 0 2px 8px -2px hsl(220 30% 15% / 0.08);
-    --shadow-medium: 0 4px 16px -4px hsl(220 30% 15% / 0.12);
-    --shadow-card: 0 1px 3px hsl(220 30% 15% / 0.04), 0 4px 12px hsl(220 30% 15% / 0.08);
+    --shadow-soft: 0 2px 8px -2px hsl(0 0% 0% / 0.08);
+    --shadow-medium: 0 4px 16px -4px hsl(0 0% 0% / 0.12);
+    --shadow-card: 0 1px 3px hsl(0 0% 0% / 0.04), 0 4px 12px hsl(0 0% 0% / 0.08);
+    --shadow-glow: 0 0 20px hsl(83 100% 40% / 0.3);
     
     /* Status colors */
-    --success: 150 60% 40%;
+    --success: 83 100% 40%;
     --warning: 38 92% 50%;
     --info: 200 80% 50%;
     
     /* Table specific */
-    --table-header: 220 20% 96%;
-    --table-row-hover: 220 20% 98%;
-    --table-border: 220 15% 90%;
+    --table-header: 0 0% 96%;
+    --table-row-hover: 0 0% 98%;
+    --table-border: 0 0% 90%;
     
     /* Frequency heat colors */
-    --heat-low: 175 40% 95%;
-    --heat-medium: 175 50% 75%;
-    --heat-high: 175 60% 45%;
+    --heat-low: 83 40% 92%;
+    --heat-medium: 83 60% 75%;
+    --heat-high: 83 80% 50%;
     --heat-critical: 0 70% 55%;
     
     --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-foreground: 0 0% 20%;
+    --sidebar-primary: 83 100% 40%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 0 0% 94%;
+    --sidebar-accent-foreground: 0 0% 20%;
+    --sidebar-border: 0 0% 88%;
+    --sidebar-ring: 83 100% 40%;
   }
 
   .dark {
-    --background: 220 25% 8%;
-    --foreground: 220 15% 95%;
+    /* NVIDIA-inspired dark theme */
+    --background: 0 0% 4%;
+    --foreground: 0 0% 95%;
     
-    --card: 220 25% 12%;
-    --card-foreground: 220 15% 95%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 95%;
     
-    --popover: 220 25% 12%;
-    --popover-foreground: 220 15% 95%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 95%;
     
-    --primary: 175 60% 50%;
-    --primary-foreground: 220 25% 8%;
+    /* Primary - NVIDIA Green */
+    --primary: 83 100% 45%;
+    --primary-foreground: 0 0% 0%;
     
-    --secondary: 220 20% 18%;
-    --secondary-foreground: 220 15% 85%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 85%;
     
-    --muted: 220 20% 15%;
-    --muted-foreground: 220 10% 55%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 55%;
     
-    --accent: 175 60% 45%;
-    --accent-foreground: 220 25% 8%;
+    /* Accent - NVIDIA Green */
+    --accent: 83 100% 45%;
+    --accent-foreground: 0 0% 0%;
     
-    --destructive: 0 62% 45%;
+    --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 100%;
     
-    --border: 220 20% 20%;
-    --input: 220 20% 20%;
-    --ring: 175 60% 50%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 83 100% 45%;
     
-    --table-header: 220 25% 14%;
-    --table-row-hover: 220 25% 16%;
-    --table-border: 220 20% 22%;
+    --gradient-primary: linear-gradient(135deg, hsl(83 100% 40%), hsl(83 100% 55%));
+    --shadow-glow: 0 0 30px hsl(83 100% 45% / 0.4);
     
-    --heat-low: 175 30% 20%;
-    --heat-medium: 175 40% 35%;
-    --heat-high: 175 50% 45%;
+    --table-header: 0 0% 8%;
+    --table-row-hover: 0 0% 10%;
+    --table-border: 0 0% 15%;
+    
+    --heat-low: 83 30% 15%;
+    --heat-medium: 83 50% 30%;
+    --heat-high: 83 70% 40%;
     --heat-critical: 0 60% 45%;
     
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 0 0% 6%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 83 100% 45%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 0 0% 90%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 83 100% 45%;
   }
 }
 
@@ -186,7 +193,7 @@
   }
   
   .glass-card {
-    @apply bg-card/80 backdrop-blur-sm border border-border shadow-card rounded-xl;
+    @apply bg-card/90 backdrop-blur-sm border border-border shadow-card rounded-xl;
   }
   
   .gradient-text {
@@ -200,7 +207,33 @@
   
   .pulse-dot::before {
     content: '';
-    @apply absolute inset-0 rounded-full animate-ping bg-accent/40;
+    @apply absolute inset-0 rounded-full animate-ping bg-primary/40;
+  }
+
+  .nvidia-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .nvidia-button {
+    @apply bg-primary text-primary-foreground font-semibold transition-all duration-200;
+  }
+
+  .nvidia-button:hover {
+    box-shadow: var(--shadow-glow);
+    @apply brightness-110;
+  }
+
+  /* Skeleton shimmer animation */
+  .skeleton-shimmer {
+    @apply relative overflow-hidden;
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 0%,
+      hsl(var(--muted-foreground) / 0.1) 50%,
+      hsl(var(--muted)) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
   }
 }
 
@@ -282,6 +315,15 @@
   }
 }
 
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -293,5 +335,5 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-muted-foreground/30 rounded-full hover:bg-muted-foreground/50;
+  @apply bg-primary/30 rounded-full hover:bg-primary/50;
 }
